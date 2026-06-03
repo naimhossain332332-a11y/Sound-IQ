@@ -1,6 +1,6 @@
 # 🔊 Sound IQ - Local AI Sound Searcher
 
-**Sound IQ** is a free, lightweight, and 100% offline alternative to Soundly. It runs entirely on your local machine using Python and local AI, allowing you to search, index, and find any sound effect from your personal audio library simply by describing what you need.
+**Sound IQ** is a free, lightweight, and 100% offline Audio Search Tool. It runs entirely on your local machine using Python and local AI, allowing you to search, index, and find any sound effect from your personal audio library simply by describing what you need.
 
 ---
 
