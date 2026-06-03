@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Sound IQ — Local AI Sound Searcher</title>
+  <meta name="description" content="Find any sound from your local library instantly — 100% Offline, Privacy-Focused & Free." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="icon" href="soundiq_logo.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Ambient Canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Liquid Glass Blobs -->
+  <div class="liquid-blob" id="blob1"></div>
+  <div class="liquid-blob" id="blob2"></div>
+  <div class="liquid-blob" id="blob3"></div>
+  <div class="liquid-blob" id="blob4"></div>
+
+  <!-- Noise Overlay -->
+  <div class="noise"></div>
+
+  <!-- Cursor Glow -->
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar" role="navigation">
+    <div class="nav-inner container">
+      <a href="#" class="nav-brand">
+        <img src="soundiq_logo.png" alt="Sound IQ" class="nav-logo" width="32" height="32" />
+        <span class="nav-label">Sound <em>IQ</em></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#features" class="nav-link">Features</a></li>
+        <li><a href="#ads" class="nav-link">Ads</a></li>
+        <li><a href="#assets" class="nav-link">Assets</a></li>
+        <li><a href="#early-access" class="nav-link">Early Access</a></li>
+      </ul>
+      <button class="nav-hamburger" id="navToggle" aria-label="Toggle menu" type="button">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-track" id="navTrack"><div class="nav-bar"></div></div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner container">
+      <div class="hero-media">
+        <img src="soundiq_logo.png" alt="Sound IQ" class="hero-emblem" width="96" height="96" />
+      </div>
+      <span class="hero-chip">&#9889; Powered by Local AI</span>
+      <h1 class="hero-title">Sound <span class="gradient">IQ</span></h1>
+      <p class="hero-desc">Find any sound from your local library instantly &mdash; 100% Offline, Privacy-Focused &amp; Free.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn btn--primary" id="downloadBtn">
+          <span class="btn-text">Download for Windows Beta (Free)</span>
+        </a>
+        <a href="#early-access" class="btn btn--ghost">
+          <span class="btn-text">Request Early Access</span>
+        </a>
+      </div>
+    </div>
+    <div class="hero-guide">
+      <span>Scroll</span>
+      <div class="hero-guide-line"></div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="section">
+    <div class="container">
+      <header class="section-head">
+        <span class="section-chip">Why Sound IQ?</span>
+        <h2 class="section-title">Built for creators, powered by <span class="gradient">local AI</span></h2>
+      </header>
+      <div class="grid-3">
+        <article class="card" data-reveal="0">
+          <div class="card-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M8 11l2 2 4-4"/></svg>
+          </div>
+          <h3 class="card-title">Smart Offline Search</h3>
+          <p class="card-desc">No internet needed. AI-powered semantic search finds the exact sound across your entire local library.</p>
+        </article>
+        <article class="card" data-reveal="150">
+          <div class="card-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+          </div>
+          <h3 class="card-title">Instant Indexing</h3>
+          <p class="card-desc">Describe what you need &mdash; thunder, footsteps, engine hum &mdash; and results appear in seconds.</p>
+        </article>
+        <article class="card" data-reveal="300">
+          <div class="card-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3 class="card-title">Zero Data Tracking</h3>
+          <p class="card-desc">Your audio files never leave your PC. No telemetry, no cloud uploads, no accounts.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ad Space -->
+  <section id="ads" class="section section--dim">
+    <div class="container">
+      <header class="section-head">
+        <span class="section-chip">Support the Project</span>
+        <h2 class="section-title">Advertisement</h2>
+      </header>
+      <div class="ad-box" id="adspace">
+        <p class="ad-label">[ Your Adsterra banner script goes here ]</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Premium Assets -->
+  <section id="assets" class="section">
+    <div class="container">
+      <header class="section-head">
+        <span class="section-chip">Premium Content</span>
+        <h2 class="section-title">Sound IQ <span class="gradient">Premium Audio Asset</span></h2>
+      </header>
+      <div class="glass-card glass-card--accent">
+        <div class="glass-card-glow"></div>
+        <h3 class="glass-card-label">Coming Soon</h3>
+        <p class="glass-card-desc">
+          The Sound IQ app is and always will be <strong>free</strong>.
+          I&rsquo;m also curating a <strong>Sound IQ Premium Audio Asset</strong> pack &mdash; studio-grade, royalty-free sounds.
+          If you need custom audio right now, reach out and I&rsquo;ll help.
+        </p>
+        <a href="https://wa.me/8801992689794?text=Hi%20I%27m%20interested%20in%20Sound%20IQ%20Premium%20Audio%20Asset" class="btn btn--primary" target="_blank" rel="noopener">
+          <span class="btn-text">Request Me Personally on WhatsApp</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Early Access -->
+  <section id="early-access" class="section section--dim">
+    <div class="container">
+      <header class="section-head">
+        <span class="section-chip">Get Involved</span>
+        <h2 class="section-title">Early Access</h2>
+      </header>
+      <div class="glass-card glass-card--center">
+        <p class="glass-card-desc">Be among the first to try Sound IQ. Request early access and I&rsquo;ll notify you when the beta drops.</p>
+        <a href="https://wa.me/8801992689794?text=Hi%20I%20want%20early%20access%20to%20Sound%20IQ" class="btn btn--ghost" target="_blank" rel="noopener">
+          <span class="btn-text">Request Early Access on WhatsApp</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="soundiq_logo.png" alt="Sound IQ" width="20" height="20" />
+        <span>Sound IQ</span>
+      </div>
+      <p class="footer-copy">&copy; 2026 Sound IQ. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+torch
+PySide6
+soundfile
+sounddevice
+librosa
+transformers
+pywin32
+numpy
