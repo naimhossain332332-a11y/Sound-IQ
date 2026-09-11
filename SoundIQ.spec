@@ -1,0 +1,85 @@
+# -*- mode: python ; coding: utf-8 -*-
+import os
+import sys
+
+block_cipher = None
+
+a = Analysis(
+    ['app.py'],
+    pathex=[],
+    binaries=[],
+    datas=[
+        ('soundiq_logo.ico', '.'),
+        ('soundiq_logo.png', '.'),
+        ('config.py', '.'),
+        ('splash.py', '.'),
+    ],
+    hiddenimports=[
+        'torch',
+        'torch._C',
+        'torch._C._jit_compiled_graphs',
+        'torchvision',
+        'torchaudio',
+        'soundfile',
+        'sounddevice',
+        'librosa',
+        'numpy',
+        'numpy.core._methods',
+        'numpy.lib.format',
+        'transformers',
+        'transformers.models.clap',
+        'PySide6',
+        'PySide6.QtWidgets',
+        'PySide6.QtCore',
+        'PySide6.QtGui',
+        'pywin32',
+        'win32com.client',
+        'win32com',
+        'pythoncom',
+    ],
+    hookspath=[],
+    hooksconfig={},
+    runtime_hooks=[],
+    excludes=[
+        'tkinter',
+        'matplotlib',
+        'scipy',
+        'pandas',
+        'PIL',
+        'IPython',
+        'jupyter',
+        'notebook',
+    ],
+    win_no_prefer_redirects=False,
+    win_private_assemblies=False,
+    cipher=block_cipher,
+    noarchive=False,
+)
+
+pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
+
+exe = EXE(
+    pyz,
+    a.scripts,
+    a.binaries,
+    a.zipfiles,
+    a.datas,
+    [],
+    name='SoundIQ',
+    debug=False,
+    bootloader_ignore_signals=False,
+    strip=False,
+    upx=True,
+    upx_exclude=[],
+    runtime_tmpdir=None,
+    console=False,
+    disable_windowed_traceback=False,
+    argv_emulation=False,
+    target_arch=None,
+    codesign_identity=None,
+    entitlements_file=None,
+    icon='soundiq_logo.ico',
+    version=None,
+    uac_admin=False,
+    uac_uiaccess=False,
+)

@@ -1,0 +1,103 @@
+name: Build Windows Installer
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -r requirements.txt
+
+      - name: Build executable with PyInstaller
+        run: |
+          pyinstaller --noconfirm --clean SoundIQ.spec
+
+      - name: Verify executable exists
+        run: |
+          if (Test-Path "dist\SoundIQ.exe") {
+            Write-Host "BUILD OK"
+            Get-Item "dist\SoundIQ.exe" | Select-Object Name, Length
+          } else {
+            Write-Error "Build failed - SoundIQ.exe not found"
+            exit 1
+          }
+
+      - name: Install Inno Setup
+        shell: pwsh
+        run: |
+          choco install innosetup -y --no-progress
+          Invoke-Expression (Get-Content 'C:\Program Files (x86)\Inno Setup 6\ISCC.exe')
+
+      - name: Compile installer
+        shell: cmd
+        run: |
+          "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installer.iss
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Sound-IQ-Windows
+          path: |
+            installer_output/*.exe
+            dist/SoundIQ.exe
+
+      - name: Get version from tag
+        id: get_version
+        shell: pwsh
+        run: |
+          echo "version=${GITHUB_REF#refs/tags/}" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/v')
+        with:
+          files: |
+            installer_output/*.exe
+            dist/SoundIQ.exe
+          body: |
+            ## Sound IQ ${{ steps.get_version.outputs.version }}
+
+            ### Downloads
+            - **SoundIQ-Setup.exe** — Professional installer (shortcuts, file associations, uninstaller)
+            - **SoundIQ.exe** — Portable standalone executable
+
+            ### What's New
+            - System tray support
+            - Persistent settings (volume, speed, window size)
+            - Waveform zoom controls (mouse wheel, +/-, Ctrl+Equal/Ctrl+Minus)
+            - Reindex folder support
+            - Extended selection in results table
+            - Keyboard shortcut overhaul
+            - AI search score column
+            - Splash screen on first launch
+            - SQLite connection pooling for faster searches
+            - LRU audio cache to bound memory usage
+            - Batch embedding writes for faster indexing
+            - Crash-safe logging to %APPDATA%\SoundIQ\logs\soundiq.log
+
+            ### Installation
+            Download the setup file and run it. The installer will:
+            1. Install Sound IQ to Program Files
+            2. Create start menu and desktop shortcuts
+            3. Optionally associate audio files
+            4. Provide a proper uninstaller
